@@ -1,0 +1,80 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Set up radiation monitoring",
+        "description": "Choose how the nearby measurement point search should determine your area.",
+        "data": {
+          "location_source": "Location source",
+          "search_radius_km": "Search radius",
+          "max_candidates": "Maximum suggested measurement points",
+          "scan_interval_minutes": "Update interval"
+        }
+      },
+      "manual_location": {
+        "title": "Manual position",
+        "description": "Enter coordinates to search for nearby measurement points.",
+        "data": {
+          "latitude": "Latitude",
+          "longitude": "Longitude"
+        }
+      },
+      "select_stations": {
+        "title": "Select measurement points",
+        "description": "{candidate_count} nearby measurement points were found or suggested around {latitude}, {longitude}. Search radius: {radius} km.",
+        "data": {
+          "selected_stations": "Measurement points"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Could not reach the API.",
+      "home_location_missing": "No Home Assistant location is configured.",
+      "no_station_selected": "Please select at least one measurement point.",
+      "invalid_coordinates": "Invalid coordinates. Please check latitude and longitude."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Configure radiation monitoring",
+        "description": "Adjust location, search radius and update interval.",
+        "data": {
+          "location_source": "Location source",
+          "search_radius_km": "Search radius",
+          "max_candidates": "Maximum suggested measurement points",
+          "scan_interval_minutes": "Update interval"
+        }
+      },
+      "manual_location": {
+        "title": "Manual position",
+        "description": "Enter coordinates to search for nearby measurement points.",
+        "data": {
+          "latitude": "Latitude",
+          "longitude": "Longitude"
+        }
+      },
+      "select_stations": {
+        "title": "Select measurement points",
+        "description": "{candidate_count} nearby measurement points were found or suggested around {latitude}, {longitude}. Search radius: {radius} km.",
+        "data": {
+          "selected_stations": "Measurement points"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Could not reach the API.",
+      "home_location_missing": "No Home Assistant location is configured.",
+      "no_station_selected": "Please select at least one measurement point.",
+      "invalid_coordinates": "Invalid coordinates. Please check latitude and longitude."
+    }
+  },
+  "selector": {
+    "location_source": {
+      "options": {
+        "home": "Home Assistant location",
+        "manual": "Manual coordinates"
+      }
+    }
+  }
+}
