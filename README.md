@@ -53,9 +53,9 @@ Wenn das Repository später offiziell im HACS-Standardkatalog gelistet ist, reic
 
 ### Manuelle Installation
 
-1. den Ordner `custom_components/strahlenschutz` in deine Home-Assistant-Installation kopieren
+1. den Ordner `custom_components/bfs_odl` in deine Home-Assistant-Installation kopieren
 2. Home Assistant neu starten
-3. unter **Einstellungen → Geräte & Dienste → Integration hinzufügen** nach **Strahlenschutz** suchen
+3. unter **Einstellungen → Geräte & Dienste → Integration hinzufügen** nach **BfS ODL** suchen
 
 ## Einrichtung
 
