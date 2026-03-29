@@ -37,7 +37,7 @@ Sobald sich dieses Projekt in einem **öffentlichen GitHub-Repository** befindet
 4. die URL des GitHub-Repositories eintragen
 5. als Kategorie **Integration** auswählen
 6. Repository hinzufügen
-7. nach **Strahlenschutz** suchen und installieren
+7. nach **BfS ODL** suchen und installieren
 8. Home Assistant neu starten
 
 #### Variante 2: Direkt über den HACS-Store
@@ -45,7 +45,7 @@ Sobald sich dieses Projekt in einem **öffentlichen GitHub-Repository** befindet
 Wenn das Repository später offiziell im HACS-Standardkatalog gelistet ist, reicht:
 
 1. **HACS → Integrationen** öffnen
-2. nach **Strahlenschutz** suchen
+2. nach **BfS ODL** suchen
 3. Integration installieren
 4. Home Assistant neu starten
 
