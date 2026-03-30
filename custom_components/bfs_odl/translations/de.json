@@ -1,0 +1,171 @@
+{
+  "title": "BfS ODL",
+  "config": {
+    "step": {
+      "user": {
+        "title": "BfS ODL einrichten",
+        "description": "Wähle aus, wie die Suche nach nahegelegenen Messpunkten deinen Bereich bestimmen soll.",
+        "data": {
+          "location_source": "Standortquelle",
+          "search_radius_km": "Suchradius",
+          "max_candidates": "Maximale Anzahl vorgeschlagener Messpunkte",
+          "scan_interval_minutes": "Aktualisierungsintervall"
+        }
+      },
+      "manual_location": {
+        "title": "Manuelle Position",
+        "description": "Gib Koordinaten ein, um nahegelegene Messpunkte zu suchen.",
+        "data": {
+          "latitude": "Breitengrad",
+          "longitude": "Längengrad"
+        }
+      },
+      "select_stations": {
+        "title": "Messpunkte auswählen",
+        "description": "Es wurden {candidate_count} nahegelegene Messpunkte rund um {latitude}, {longitude} gefunden oder vorgeschlagen. Suchradius: {radius} km.",
+        "data": {
+          "selected_stations": "Messpunkte"
+        }
+      },
+      "thresholds": {
+        "title": "Schwellen für die Messwertbewertung",
+        "description": "Lege die untere und obere Schwelle für den Sensor „Messwertbewertung“ fest. Standardwerte: {default_low} µSv/h und {default_high} µSv/h.",
+        "data": {
+          "threshold_low": "Untere Schwelle",
+          "threshold_high": "Obere Schwelle"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Die API konnte nicht erreicht werden.",
+      "home_location_missing": "In Home Assistant ist kein Standort hinterlegt.",
+      "no_station_selected": "Bitte wähle mindestens einen Messpunkt aus.",
+      "invalid_coordinates": "Ungültige Koordinaten. Bitte Breiten- und Längengrad prüfen.",
+      "invalid_thresholds": "Die untere Schwelle muss kleiner als die obere Schwelle sein."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "BfS ODL konfigurieren",
+        "description": "Passe Standort, Suchradius und Aktualisierungsintervall an.",
+        "data": {
+          "location_source": "Standortquelle",
+          "search_radius_km": "Suchradius",
+          "max_candidates": "Maximale Anzahl vorgeschlagener Messpunkte",
+          "scan_interval_minutes": "Aktualisierungsintervall"
+        }
+      },
+      "manual_location": {
+        "title": "Manuelle Position",
+        "description": "Gib Koordinaten ein, um nahegelegene Messpunkte zu suchen.",
+        "data": {
+          "latitude": "Breitengrad",
+          "longitude": "Längengrad"
+        }
+      },
+      "select_stations": {
+        "title": "Messpunkte auswählen",
+        "description": "Es wurden {candidate_count} nahegelegene Messpunkte rund um {latitude}, {longitude} gefunden oder vorgeschlagen. Suchradius: {radius} km.",
+        "data": {
+          "selected_stations": "Messpunkte"
+        }
+      },
+      "thresholds": {
+        "title": "Schwellen für die Messwertbewertung",
+        "description": "Passe die untere und obere Schwelle für den Sensor „Messwertbewertung“ an. Standardwerte: {default_low} µSv/h und {default_high} µSv/h.",
+        "data": {
+          "threshold_low": "Untere Schwelle",
+          "threshold_high": "Obere Schwelle"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Die API konnte nicht erreicht werden.",
+      "home_location_missing": "In Home Assistant ist kein Standort hinterlegt.",
+      "no_station_selected": "Bitte wähle mindestens einen Messpunkt aus.",
+      "invalid_coordinates": "Ungültige Koordinaten. Bitte Breiten- und Längengrad prüfen.",
+      "invalid_thresholds": "Die untere Schwelle muss kleiner als die obere Schwelle sein."
+    }
+  },
+  "selector": {
+    "location_source": {
+      "options": {
+        "home": "Home-Assistant-Standort",
+        "manual": "Manuelle Koordinaten"
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "gamma_odl_1h": {
+        "name": "Gamma-ODL (1h)"
+      },
+      "measurement_assessment": {
+        "name": "Messwertbewertung",
+        "state": {
+          "no_data": "Keine Daten",
+          "below_natural_range": "Unter natürlichem Bereich",
+          "within_natural_range": "Im natürlichen Bereich",
+          "above_natural_range": "Über natürlichem Bereich",
+          "below_configured_range": "Unter konfiguriertem Bereich",
+          "within_configured_range": "Im konfigurierten Bereich",
+          "above_configured_range": "Über konfiguriertem Bereich"
+        }
+      },
+      "gamma_odl_1h_cosmic": {
+        "name": "Gamma-ODL kosmisch (1h)"
+      },
+      "gamma_odl_1h_terrestrial": {
+        "name": "Gamma-ODL terrestrisch (1h)"
+      },
+      "distance": {
+        "name": "Entfernung"
+      },
+      "height_above_sea": {
+        "name": "Höhe über NN"
+      },
+      "station_id": {
+        "name": "Messstations-ID"
+      },
+      "station_code": {
+        "name": "Stationscode"
+      },
+      "validation_status": {
+        "name": "Prüfstatus",
+        "state": {
+          "validated": "Geprüft",
+          "unvalidated": "Ungeprüft",
+          "unknown": "Unbekannt"
+        }
+      },
+      "site_status": {
+        "name": "Messstellenstatus",
+        "state": {
+          "in_operation": "In Betrieb",
+          "defective": "Defekt",
+          "test_operation": "Testbetrieb",
+          "unknown": "Unbekannt"
+        }
+      },
+      "kid": {
+        "name": "Messnetzknoten",
+        "state": {
+          "freiburg": "Freiburg",
+          "berlin": "Berlin",
+          "munich": "München",
+          "bonn": "Bonn",
+          "salzgitter": "Salzgitter",
+          "rendsburg": "Rendsburg",
+          "unknown": "Unbekannt"
+        }
+      },
+      "measurement_start": {
+        "name": "Messbeginn"
+      },
+      "measurement_end": {
+        "name": "Messende"
+      }
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "name": "BfS ODL",
+  "country": "DE",
+  "homeassistant": "2026.3.0",
+  "render_readme": true,
+  "domains": [
+    "sensor"
+  ]
+}

@@ -1,0 +1,49 @@
+blueprint:
+  name: BfS ODL – Sudden change / Sprunghafte Änderung
+  description: >
+    Triggers when the numeric Gamma ODL value changes by at least the configured
+    absolute delta compared to the previous state.
+  domain: automation
+  input:
+    odl_sensor:
+      name: Gamma ODL sensor / Gamma-ODL-Sensor
+      description: Select the primary Gamma ODL sensor (1h).
+      selector:
+        entity:
+          domain: sensor
+    delta_threshold:
+      name: Minimum change / Mindeständerung
+      description: Absolute change in µSv/h between the old and the new state.
+      default: 0.03
+      selector:
+        number:
+          min: 0.001
+          max: 5
+          step: 0.001
+          unit_of_measurement: µSv/h
+          mode: box
+    actions:
+      name: Actions / Aktionen
+      description: Actions executed when the automation fires.
+      selector:
+        action: {}
+
+mode: single
+
+trigger:
+  - platform: state
+    entity_id: !input odl_sensor
+
+variables:
+  delta_threshold: !input delta_threshold
+
+condition:
+  - condition: template
+    value_template: >
+      {{ trigger.from_state is not none
+         and trigger.to_state is not none
+         and trigger.from_state.state not in ['unknown', 'unavailable', 'none', 'None']
+         and trigger.to_state.state not in ['unknown', 'unavailable', 'none', 'None']
+         and (trigger.to_state.state | float(0) - trigger.from_state.state | float(0)) | abs >= delta_threshold | float(0) }}
+
+action: !input actions

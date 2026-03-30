@@ -1,0 +1,171 @@
+{
+  "title": "BfS ODL",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Set up BfS ODL",
+        "description": "Choose how the nearby measurement point search should determine your area.",
+        "data": {
+          "location_source": "Location source",
+          "search_radius_km": "Search radius",
+          "max_candidates": "Maximum suggested measurement points",
+          "scan_interval_minutes": "Update interval"
+        }
+      },
+      "manual_location": {
+        "title": "Manual position",
+        "description": "Enter coordinates to search for nearby measurement points.",
+        "data": {
+          "latitude": "Latitude",
+          "longitude": "Longitude"
+        }
+      },
+      "select_stations": {
+        "title": "Select measurement points",
+        "description": "{candidate_count} nearby measurement points were found or suggested around {latitude}, {longitude}. Search radius: {radius} km.",
+        "data": {
+          "selected_stations": "Measurement points"
+        }
+      },
+      "thresholds": {
+        "title": "Assessment thresholds",
+        "description": "Define the lower and upper thresholds for the measurement assessment sensor. Defaults: {default_low} µSv/h and {default_high} µSv/h.",
+        "data": {
+          "threshold_low": "Lower threshold",
+          "threshold_high": "Upper threshold"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Could not reach the API.",
+      "home_location_missing": "No Home Assistant location is configured.",
+      "no_station_selected": "Please select at least one measurement point.",
+      "invalid_coordinates": "Invalid coordinates. Please check latitude and longitude.",
+      "invalid_thresholds": "The lower threshold must be smaller than the upper threshold."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Configure BfS ODL",
+        "description": "Adjust location, search radius and update interval.",
+        "data": {
+          "location_source": "Location source",
+          "search_radius_km": "Search radius",
+          "max_candidates": "Maximum suggested measurement points",
+          "scan_interval_minutes": "Update interval"
+        }
+      },
+      "manual_location": {
+        "title": "Manual position",
+        "description": "Enter coordinates to search for nearby measurement points.",
+        "data": {
+          "latitude": "Latitude",
+          "longitude": "Longitude"
+        }
+      },
+      "select_stations": {
+        "title": "Select measurement points",
+        "description": "{candidate_count} nearby measurement points were found or suggested around {latitude}, {longitude}. Search radius: {radius} km.",
+        "data": {
+          "selected_stations": "Measurement points"
+        }
+      },
+      "thresholds": {
+        "title": "Assessment thresholds",
+        "description": "Adjust the lower and upper thresholds used by the measurement assessment sensor. Defaults: {default_low} µSv/h and {default_high} µSv/h.",
+        "data": {
+          "threshold_low": "Lower threshold",
+          "threshold_high": "Upper threshold"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Could not reach the API.",
+      "home_location_missing": "No Home Assistant location is configured.",
+      "no_station_selected": "Please select at least one measurement point.",
+      "invalid_coordinates": "Invalid coordinates. Please check latitude and longitude.",
+      "invalid_thresholds": "The lower threshold must be smaller than the upper threshold."
+    }
+  },
+  "selector": {
+    "location_source": {
+      "options": {
+        "home": "Home Assistant location",
+        "manual": "Manual coordinates"
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "gamma_odl_1h": {
+        "name": "Gamma ODL (1h)"
+      },
+      "measurement_assessment": {
+        "name": "Measurement assessment",
+        "state": {
+          "no_data": "No data",
+          "below_natural_range": "Below natural range",
+          "within_natural_range": "Within natural range",
+          "above_natural_range": "Above natural range",
+          "below_configured_range": "Below configured range",
+          "within_configured_range": "Within configured range",
+          "above_configured_range": "Above configured range"
+        }
+      },
+      "gamma_odl_1h_cosmic": {
+        "name": "Gamma ODL cosmic (1h)"
+      },
+      "gamma_odl_1h_terrestrial": {
+        "name": "Gamma ODL terrestrial (1h)"
+      },
+      "distance": {
+        "name": "Distance"
+      },
+      "height_above_sea": {
+        "name": "Height above sea level"
+      },
+      "station_id": {
+        "name": "Measurement station ID"
+      },
+      "station_code": {
+        "name": "Station code"
+      },
+      "validation_status": {
+        "name": "Validation status",
+        "state": {
+          "validated": "Validated",
+          "unvalidated": "Unvalidated",
+          "unknown": "Unknown"
+        }
+      },
+      "site_status": {
+        "name": "Measurement point status",
+        "state": {
+          "in_operation": "In operation",
+          "defective": "Defective",
+          "test_operation": "Test operation",
+          "unknown": "Unknown"
+        }
+      },
+      "kid": {
+        "name": "Network node",
+        "state": {
+          "freiburg": "Freiburg",
+          "berlin": "Berlin",
+          "munich": "Munich",
+          "bonn": "Bonn",
+          "salzgitter": "Salzgitter",
+          "rendsburg": "Rendsburg",
+          "unknown": "Unknown"
+        }
+      },
+      "measurement_start": {
+        "name": "Measurement start"
+      },
+      "measurement_end": {
+        "name": "Measurement end"
+      }
+    }
+  }
+}
