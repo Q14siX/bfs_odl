@@ -4,7 +4,7 @@
 ![Maintained](https://img.shields.io/badge/Maintained%3F-yes-green?style=flat)
 
 ![Downloads](https://img.shields.io/github/downloads/Q14siX/bfs_odl/total?style=flat&color=green)
-![Stars](https://img.shields.io/github/stars/Q14siX/bfs_odl?style=flat&logo=github)
+![Stars](https://img.shields.io/github/stars/Q14siX/bfs_odl?style=flat&logo=github&color=gold)
 ![Languages](https://img.shields.io/badge/Languages-Deutsch%20%7C%20English-orange?style=flat&logo=translate)
 ![License](https://img.shields.io/github/license/Q14siX/bfs_odl?style=flat&color=orange)
 
