@@ -1,0 +1,66 @@
+blueprint:
+  name: BfS ODL – Reference range notification
+  description: >
+    Triggers when a BfS ODL assessment sensor remains in a selected state for a
+    defined time.
+  domain: automation
+  input:
+    assessment_sensor:
+      name: Assessment sensor
+      description: Select the “Measurement assessment” sensor from the BfS ODL integration.
+      selector:
+        entity:
+          filter:
+            - integration: bfs_odl
+              domain: sensor
+    target_state:
+      name: Target state
+      description: Select the state that should trigger the automation.
+      default: above_natural_range
+      selector:
+        select:
+          options:
+            - label: Above natural range
+              value: above_natural_range
+            - label: Below natural range
+              value: below_natural_range
+            - label: Within natural range
+              value: within_natural_range
+            - label: Above configured range
+              value: above_configured_range
+            - label: Below configured range
+              value: below_configured_range
+            - label: Within configured range
+              value: within_configured_range
+            - label: No data
+              value: no_data
+          mode: dropdown
+    duration_minutes:
+      name: Duration in minutes
+      description: The state must remain active for this duration before triggering.
+      default: 30
+      selector:
+        number:
+          min: 1
+          max: 1440
+          step: 1
+          unit_of_measurement: min
+          mode: box
+    actions:
+      name: Actions
+      description: Actions executed when the automation fires.
+      selector:
+        action: {}
+
+mode: single
+
+trigger:
+  - platform: state
+    entity_id: !input assessment_sensor
+    to: !input target_state
+    for:
+      minutes: !input duration_minutes
+
+condition: []
+
+action: !input actions

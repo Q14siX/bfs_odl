@@ -1,0 +1,49 @@
+blueprint:
+  name: BfS ODL – Data unavailable
+  description: >
+    Triggers when a selected BfS ODL sensor remains unknown or unavailable for
+    the configured duration.
+  domain: automation
+  input:
+    monitored_sensor:
+      name: Monitored sensor
+      description: Select any sensor from the BfS ODL integration.
+      selector:
+        entity:
+          filter:
+            - integration: bfs_odl
+              domain: sensor
+    unavailable_for_minutes:
+      name: Duration in minutes
+      description: The sensor state must remain unknown or unavailable for this duration.
+      default: 60
+      selector:
+        number:
+          min: 1
+          max: 10080
+          step: 1
+          unit_of_measurement: min
+          mode: box
+    actions:
+      name: Actions
+      description: Actions executed when the automation fires.
+      selector:
+        action: {}
+
+mode: single
+
+trigger:
+  - platform: state
+    entity_id: !input monitored_sensor
+    to: unavailable
+    for:
+      minutes: !input unavailable_for_minutes
+  - platform: state
+    entity_id: !input monitored_sensor
+    to: unknown
+    for:
+      minutes: !input unavailable_for_minutes
+
+condition: []
+
+action: !input actions

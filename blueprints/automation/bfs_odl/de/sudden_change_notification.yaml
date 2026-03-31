@@ -1,0 +1,52 @@
+blueprint:
+  name: BfS ODL – Sprunghafte Änderung
+  description: >
+    Löst aus, wenn sich der numerische Gamma-ODL-Wert eines Sensors der
+    BfS-ODL-Integration gegenüber dem vorherigen Zustand um mindestens den
+    konfigurierten Betrag ändert.
+  domain: automation
+  input:
+    odl_sensor:
+      name: Gamma-ODL-Sensor
+      description: Wähle den primären Gamma-ODL-Sensor (1h) aus der BfS-ODL-Integration.
+      selector:
+        entity:
+          filter:
+            - integration: bfs_odl
+              domain: sensor
+    delta_threshold:
+      name: Mindeständerung
+      description: Absolute Änderung in µSv/h zwischen altem und neuem Zustand.
+      default: 0.03
+      selector:
+        number:
+          min: 0.001
+          max: 5
+          step: 0.001
+          unit_of_measurement: µSv/h
+          mode: box
+    actions:
+      name: Aktionen
+      description: Aktionen, die beim Auslösen ausgeführt werden.
+      selector:
+        action: {}
+
+mode: single
+
+trigger:
+  - platform: state
+    entity_id: !input odl_sensor
+
+variables:
+  delta_threshold: !input delta_threshold
+
+condition:
+  - condition: template
+    value_template: >
+      {{ trigger.from_state is not none
+         and trigger.to_state is not none
+         and trigger.from_state.state not in ['unknown', 'unavailable', 'none', 'None']
+         and trigger.to_state.state not in ['unknown', 'unavailable', 'none', 'None']
+         and (trigger.to_state.state | float(0) - trigger.from_state.state | float(0)) | abs >= delta_threshold | float(0) }}
+
+action: !input actions

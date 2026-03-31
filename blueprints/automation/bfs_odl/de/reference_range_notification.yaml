@@ -1,0 +1,66 @@
+blueprint:
+  name: BfS ODL – Referenzbereich-Benachrichtigung
+  description: >
+    Löst aus, wenn ein Bewertungssensor der BfS-ODL-Integration für eine definierte
+    Zeit in einem ausgewählten Zustand bleibt.
+  domain: automation
+  input:
+    assessment_sensor:
+      name: Bewertungssensor
+      description: Wähle den Sensor „Messwertbewertung“ aus der BfS-ODL-Integration.
+      selector:
+        entity:
+          filter:
+            - integration: bfs_odl
+              domain: sensor
+    target_state:
+      name: Zu überwachender Zustand
+      description: Wähle den Zustand aus, auf den reagiert werden soll.
+      default: above_natural_range
+      selector:
+        select:
+          options:
+            - label: Über natürlichem Bereich
+              value: above_natural_range
+            - label: Unter natürlichem Bereich
+              value: below_natural_range
+            - label: Im natürlichen Bereich
+              value: within_natural_range
+            - label: Über konfiguriertem Bereich
+              value: above_configured_range
+            - label: Unter konfiguriertem Bereich
+              value: below_configured_range
+            - label: Im konfigurierten Bereich
+              value: within_configured_range
+            - label: Keine Daten
+              value: no_data
+          mode: dropdown
+    duration_minutes:
+      name: Dauer in Minuten
+      description: Der Zustand muss so lange anliegen, bevor ausgelöst wird.
+      default: 30
+      selector:
+        number:
+          min: 1
+          max: 1440
+          step: 1
+          unit_of_measurement: min
+          mode: box
+    actions:
+      name: Aktionen
+      description: Aktionen, die beim Auslösen ausgeführt werden.
+      selector:
+        action: {}
+
+mode: single
+
+trigger:
+  - platform: state
+    entity_id: !input assessment_sensor
+    to: !input target_state
+    for:
+      minutes: !input duration_minutes
+
+condition: []
+
+action: !input actions
