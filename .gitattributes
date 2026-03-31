@@ -1,6 +1,0 @@
-# 1. Alles im gesamten Repository für die Statistik ignorieren
-* linguist-vendored
-
-# 2. Die Dateien im Translations-Ordner explizit wieder als "zählbare Sprache" aktivieren
-custom_components/bfs_odl/translations/*.json linguist-detectable=true
-custom_components/bfs_odl/translations/*.json linguist-vendored=false
