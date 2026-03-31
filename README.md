@@ -14,13 +14,14 @@ Diese Home-Assistant-Custom-Integration liest aktuelle Gamma-Ortsdosisleistungsw
 - Standardschwellen `0,05 µSv/h` und `0,18 µSv/h`
 - Hauptsensor für den aktuellen 1-Stunden-Gamma-ODL-Wert
 - Zusätzliche Diagnose-Sensoren für kosmischen und terrestrischen Anteil, Entfernung, Höhe über NN, Prüfstatus, Messstellenstatus, Messnetzknoten, Messstations-ID, Stationscode sowie Messbeginn und Messende
-- Drei Automatisierungs-Blueprints enthalten
 - Deutsche und englische Sprachdateien enthalten
-- Korrekte Behandlung der API-Zeitangaben: Zeitstempel aus der API sind UTC/Zulu. Die Timestamp-Sensoren werden UTC-aware an Home Assistant übergeben und in der Oberfläche in die Zeitzone des Nutzers umgerechnet. Zusätzlich bleiben die UTC-Zeitpunkte als separate Attribute am Hauptsensor verfügbar.
+- Zeitstempel aus der API werden als UTC/Zulu behandelt; Home Assistant rechnet die Timestamp-Sensoren für die Anzeige in die Nutzerzeitzone um
 
 ### Installation
 
 #### HACS (benutzerdefiniertes Repository)
+[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=Q14siX&repository=bfs_odl)
+
 1. Dieses Projekt in ein öffentliches GitHub-Repository legen.
 2. In HACS als **Benutzerdefiniertes Repository** vom Typ **Integration** hinzufügen.
 3. Repository über HACS installieren.
@@ -29,7 +30,9 @@ Diese Home-Assistant-Custom-Integration liest aktuelle Gamma-Ortsdosisleistungsw
 
 #### Manuelle Installation
 1. `custom_components/bfs_odl` in dein Home-Assistant-Konfigurationsverzeichnis kopieren.
-2. Optional zusätzlich `blueprints/automation/bfs_odl` nach `<config>/blueprints/automation/bfs_odl` kopieren.
+2. Optional zusätzlich den gewünschten Blueprint-Unterordner kopieren:
+   - `blueprints/automation/bfs_odl/de`
+   - `blueprints/automation/bfs_odl/en`
 3. Home Assistant neu starten.
 4. **BfS ODL** über **Einstellungen → Geräte & Dienste → Integration hinzufügen** einrichten.
 
@@ -58,6 +61,7 @@ Zusätzlicher Zustand:
 - `no_data` → **Keine Daten**
 
 ### Sensoren
+
 #### Hauptsensor
 - **Gamma-ODL (1h)**
 
@@ -137,52 +141,66 @@ Die Integration:
 - ergänzt am Hauptsensor sowohl lokale Zeit (`measurement_start`, `measurement_end`, `api_timestamp`) als auch die ursprünglichen UTC-Zeitpunkte (`*_utc`)
 
 ### Blueprints
-Enthalten unter `blueprints/automation/bfs_odl/`:
-- `reference_range_notification.yaml`
-- `sudden_change_notification.yaml`
-- `data_unavailable_notification.yaml`
 
-Die Blueprints liegen im Repository, werden von Home Assistant aber nicht automatisch beim Installieren der Integration importiert.
+Die Blueprints liegen in zwei getrennten Sprachversionen vor:
 
-### Blueprints über die RAW-Datei von GitHub importieren
+#### Deutsche Blueprints
+- `blueprints/automation/bfs_odl/de/reference_range_notification.yaml`
+- `blueprints/automation/bfs_odl/de/sudden_change_notification.yaml`
+- `blueprints/automation/bfs_odl/de/data_unavailable_notification.yaml`
+
+#### Englische Blueprints
+- `blueprints/automation/bfs_odl/en/reference_range_notification.yaml`
+- `blueprints/automation/bfs_odl/en/sudden_change_notification.yaml`
+- `blueprints/automation/bfs_odl/en/data_unavailable_notification.yaml`
+
+Die Blueprints werden von Home Assistant nicht automatisch beim Installieren der Integration importiert.
+
+#### Deutsche Blueprints über die RAW-Datei von GitHub importieren
 Für weniger versierte Nutzer ist das der einfachste Weg:
 
 1. In Home Assistant zu **Einstellungen → Automatisierungen & Szenen → Blueprints** gehen.
 2. Unten rechts auf **Blueprint importieren** klicken.
-3. Den passenden **RAW-Link** des gewünschten Blueprints in das Eingabefeld einfügen.
+3. Den passenden **RAW-Link** des gewünschten deutschen Blueprints in das Eingabefeld einfügen.
 4. Den Import bestätigen.
 5. Danach den Blueprint öffnen und daraus eine Automation erstellen.
 
-Direkte RAW-Links:
+Direkte RAW-Links der deutschen Blueprints:
 
 - Referenzbereich-Benachrichtigung:  
-  `https://raw.githubusercontent.com/Q14siX/bfs_odl/main/blueprints/automation/bfs_odl/de/reference_range_notification.yaml`
+  `https://raw.githubusercontent.com/Q14siX/bfs_odl/main/blueprints/automation/bfs_odl/de/reference_range_notification.yaml`  
+  [![Open your Home Assistant instance and show the blueprint import dialog with a specific blueprint pre-filled.](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https%3A%2F%2Fraw.githubusercontent.com%2FQ14siX%2Fbfs_odl%2Fmain%2Fblueprints%2Fautomation%2Fbfs_odl%2Fde%2Freference_range_notification.yaml)
+
 - Sprunghafte Änderung:  
-  `https://raw.githubusercontent.com/Q14siX/bfs_odl/main/blueprints/automation/bfs_odl/de/sudden_change_notification.yaml`
+  `https://raw.githubusercontent.com/Q14siX/bfs_odl/main/blueprints/automation/bfs_odl/de/sudden_change_notification.yaml`  
+  [![Open your Home Assistant instance and show the blueprint import dialog with a specific blueprint pre-filled.](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https%3A%2F%2Fraw.githubusercontent.com%2FQ14siX%2Fbfs_odl%2Fmain%2Fblueprints%2Fautomation%2Fbfs_odl%2Fde%2Fsudden_change_notification.yaml)
+
 - Daten nicht verfügbar:  
-  `https://raw.githubusercontent.com/Q14siX/bfs_odl/main/blueprints/automation/bfs_odl/de/data_unavailable_notification.yaml`
+  `https://raw.githubusercontent.com/Q14siX/bfs_odl/main/blueprints/automation/bfs_odl/de/data_unavailable_notification.yaml`  
+  [![Open your Home Assistant instance and show the blueprint import dialog with a specific blueprint pre-filled.](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https%3A%2F%2Fraw.githubusercontent.com%2FQ14siX%2Fbfs_odl%2Fmain%2Fblueprints%2Fautomation%2Fbfs_odl%2Fde%2Fdata_unavailable_notification.yaml)
 
-### Blueprints manuell kopieren
-Alternativ können die YAML-Dateien direkt nach folgendem Ordner kopiert werden:
+#### Deutsche Blueprints manuell kopieren
+Alternativ können die deutschen YAML-Dateien direkt nach folgendem Ordner kopiert werden:
 
-`<config>/blueprints/automation/bfs_odl/`
+`<config>/blueprints/automation/bfs_odl/de/`
 
 Danach Home Assistant neu laden oder neu starten.
 
-### Hinweis zur Zustandsauswahl im Referenzbereich-Blueprint
-Der Referenzbereich-Blueprint arbeitet mit den Rohzuständen des Bewertungssensors.
+#### Hinweis zur Zustandsauswahl im Referenzbereich-Blueprint
+Der deutsche Referenzbereich-Blueprint zeigt lesbare deutsche Auswahltexte an. Intern arbeitet er weiterhin mit den Rohzuständen des Bewertungssensors.
 
-- Solange die Standardschwellen aktiv sind, werden die Zustände `*_natural_range` verwendet.
-- Bei benutzerdefinierten Schwellen werden stattdessen die Zustände `*_configured_range` verwendet.
+- Solange die Standardschwellen aktiv sind, werden intern die Zustände `*_natural_range` verwendet.
+- Bei benutzerdefinierten Schwellen werden intern die Zustände `*_configured_range` verwendet.
 
 ### Bestehende Installation aktualisieren
 1. Den Ordner `custom_components/bfs_odl` ersetzen.
-2. Falls du auch die neuesten Blueprint-Versionen möchtest, zusätzlich `blueprints/automation/bfs_odl` ersetzen.
+2. Falls du auch die neuesten Blueprint-Versionen möchtest, zusätzlich `blueprints/automation/bfs_odl/de` und/oder `blueprints/automation/bfs_odl/en` ersetzen.
 3. Home Assistant vollständig neu starten.
 4. Falls gewünscht, anschließend in den Integrationsoptionen die Schwellen anpassen.
 5. Falls Home Assistant noch eine verwaiste Alt-Entität aus einem früheren fehlerhaften Build anzeigt, diesen veralteten Eintrag einmalig löschen und die Integration neu laden.
 
 ### Fehlerbehebung
+
 **API konnte nicht erreicht werden**
 - Prüfe, ob Home Assistant ausgehenden HTTPS-Zugriff hat.
 - Starte Home Assistant nach dem Dateiaustausch neu.
@@ -210,18 +228,21 @@ Der Referenzbereich-Blueprint arbeitet mit den Rohzuständen des Bewertungssenso
 This Home Assistant custom integration reads current gamma ambient dose rate (ODL) values from the public BfS ODL-Info API and lets the user select nearby measurement points during setup.
 
 ### Features
+
 - HACS-compatible custom integration
 - Setup flow with station selection based on the Home Assistant location or manual coordinates
 - User-configurable thresholds for the **Measurement assessment** sensor
 - Default thresholds `0.05 µSv/h` and `0.18 µSv/h`
 - Main sensor for the current 1-hour gamma ODL value
-- Additional diagnostic sensors for cosmic and terrestrial share, distance, elevation, validation status, station status, network node, measurement station ID, station code, measurement start and measurement end
-- Three automation blueprints included
+- Additional diagnostic sensors for cosmic and terrestrial share, distance, elevation, validation status, station status, network node, measurement station ID, station code, measurement start, and measurement end
 - German and English translation files included
-- Correct handling of API timestamps: upstream timestamps are UTC/Zulu. Timestamp sensors are exposed as UTC-aware datetimes and Home Assistant renders them in the user timezone. Additional UTC timestamps remain available as separate attributes on the main sensor.
+- API timestamps are treated as UTC/Zulu; Home Assistant renders timestamp sensors in the user timezone
 
 ### Installation
+
 #### HACS (custom repository)
+[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=Q14siX&repository=bfs_odl)
+
 1. Put this project into a public GitHub repository.
 2. In HACS, add it as a **Custom repository** of type **Integration**.
 3. Install the repository via HACS.
@@ -230,7 +251,9 @@ This Home Assistant custom integration reads current gamma ambient dose rate (OD
 
 #### Manual installation
 1. Copy `custom_components/bfs_odl` into your Home Assistant configuration directory.
-2. Optionally also copy `blueprints/automation/bfs_odl` to `<config>/blueprints/automation/bfs_odl`.
+2. Optionally also copy the blueprint language folder you want:
+   - `blueprints/automation/bfs_odl/de`
+   - `blueprints/automation/bfs_odl/en`
 3. Restart Home Assistant.
 4. Add **BfS ODL** via **Settings → Devices & services → Add integration**.
 
@@ -259,6 +282,7 @@ Additional state:
 - `no_data` → **No data**
 
 ### Sensors
+
 #### Main sensor
 - **Gamma ODL (1h)**
 
@@ -330,60 +354,74 @@ The main `Gamma ODL (1h)` sensor exposes a cleaned-up attribute set without dupl
 - `local_timezone`
 
 ### Time handling
-The API documents `start_measure`, `end_measure`, and `timeStamp` as ISO datetimes with `Z`. The integration therefore treats upstream timestamps as UTC.
+The API documents `start_measure`, `end_measure`, and `timeStamp` as ISO datetimes with `Z`. This integration therefore treats upstream timestamps as UTC.
 
 The integration:
 - keeps timestamp sensors timezone-aware in UTC
-- exposes `Measurement start` and `Measurement end` as timestamp sensors which Home Assistant renders in the user timezone
+- exposes `Measurement start` and `Measurement end` as timestamp sensors that Home Assistant renders in the user timezone
 - adds both local time (`measurement_start`, `measurement_end`, `api_timestamp`) and the original UTC instants (`*_utc`) to the main sensor
 
 ### Blueprints
-Included under `blueprints/automation/bfs_odl/`:
-- `reference_range_notification.yaml`
-- `sudden_change_notification.yaml`
-- `data_unavailable_notification.yaml`
 
-Blueprints are stored in the repository, but Home Assistant does not auto-import them when the integration is installed.
+Blueprints are available in two separate language sets:
 
-### Import blueprints using the GitHub RAW file
+#### German blueprints
+- `blueprints/automation/bfs_odl/de/reference_range_notification.yaml`
+- `blueprints/automation/bfs_odl/de/sudden_change_notification.yaml`
+- `blueprints/automation/bfs_odl/de/data_unavailable_notification.yaml`
+
+#### English blueprints
+- `blueprints/automation/bfs_odl/en/reference_range_notification.yaml`
+- `blueprints/automation/bfs_odl/en/sudden_change_notification.yaml`
+- `blueprints/automation/bfs_odl/en/data_unavailable_notification.yaml`
+
+Blueprints are not imported automatically when the integration is installed.
+
+#### Import English blueprints using the GitHub RAW file
 For less technical users this is usually the easiest method:
 
 1. In Home Assistant open **Settings → Automations & Scenes → Blueprints**.
 2. Click **Import Blueprint** in the lower right corner.
-3. Paste the matching **RAW link** of the blueprint you want to import.
+3. Paste the matching **RAW link** of the English blueprint you want to import.
 4. Confirm the import.
 5. Open the imported blueprint and create an automation from it.
 
-Direct RAW links:
+Direct RAW links for the English blueprints:
 
 - Reference range notification:  
-  `https://raw.githubusercontent.com/Q14siX/bfs_odl/main/blueprints/automation/bfs_odl/en/reference_range_notification.yaml`
+  `https://raw.githubusercontent.com/Q14siX/bfs_odl/main/blueprints/automation/bfs_odl/en/reference_range_notification.yaml`  
+  [![Open your Home Assistant instance and show the blueprint import dialog with a specific blueprint pre-filled.](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https%3A%2F%2Fraw.githubusercontent.com%2FQ14siX%2Fbfs_odl%2Fmain%2Fblueprints%2Fautomation%2Fbfs_odl%2Fen%2Freference_range_notification.yaml)
+
 - Sudden change:  
-  `https://raw.githubusercontent.com/Q14siX/bfs_odl/main/blueprints/automation/bfs_odl/en/sudden_change_notification.yaml`
+  `https://raw.githubusercontent.com/Q14siX/bfs_odl/main/blueprints/automation/bfs_odl/en/sudden_change_notification.yaml`  
+  [![Open your Home Assistant instance and show the blueprint import dialog with a specific blueprint pre-filled.](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https%3A%2F%2Fraw.githubusercontent.com%2FQ14siX%2Fbfs_odl%2Fmain%2Fblueprints%2Fautomation%2Fbfs_odl%2Fen%2Fsudden_change_notification.yaml)
+
 - Data unavailable:  
-  `https://raw.githubusercontent.com/Q14siX/bfs_odl/main/blueprints/automation/bfs_odl/en/data_unavailable_notification.yaml`
+  `https://raw.githubusercontent.com/Q14siX/bfs_odl/main/blueprints/automation/bfs_odl/en/data_unavailable_notification.yaml`  
+  [![Open your Home Assistant instance and show the blueprint import dialog with a specific blueprint pre-filled.](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https%3A%2F%2Fraw.githubusercontent.com%2FQ14siX%2Fbfs_odl%2Fmain%2Fblueprints%2Fautomation%2Fbfs_odl%2Fen%2Fdata_unavailable_notification.yaml)
 
-### Copy blueprints manually
-Alternatively, copy the YAML files directly into:
+#### Copy English blueprints manually
+Alternatively, copy the English YAML files directly into:
 
-`<config>/blueprints/automation/bfs_odl/`
+`<config>/blueprints/automation/bfs_odl/en/`
 
 Then reload Home Assistant or restart it.
 
-### Note about state selection in the reference-range blueprint
-The reference-range blueprint works with the raw states of the assessment sensor.
+#### Note about state selection in the reference-range blueprint
+The English reference-range blueprint shows readable English labels in the selection field. Internally it still works with the raw states of the assessment sensor.
 
-- While the default thresholds are active it uses the `*_natural_range` states.
-- With custom thresholds it uses the `*_configured_range` states.
+- While the default thresholds are active it internally uses the `*_natural_range` states.
+- With custom thresholds it internally uses the `*_configured_range` states.
 
 ### Updating an existing installation
 1. Replace the `custom_components/bfs_odl` folder.
-2. If you also want the latest blueprint versions, replace `blueprints/automation/bfs_odl` as well.
+2. If you also want the latest blueprint versions, also replace `blueprints/automation/bfs_odl/de` and/or `blueprints/automation/bfs_odl/en`.
 3. Restart Home Assistant completely.
 4. Open the integration options if you want to change thresholds later.
 5. If Home Assistant still shows an old orphaned entity from an earlier broken build, remove that stale entity once and reload the integration.
 
 ### Troubleshooting
+
 **API could not be reached**
 - Verify outbound HTTPS access from Home Assistant.
 - Restart Home Assistant after replacing files.
