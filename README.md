@@ -142,9 +142,38 @@ Enthalten unter `blueprints/automation/bfs_odl/`:
 - `sudden_change_notification.yaml`
 - `data_unavailable_notification.yaml`
 
-Die Blueprints liegen im Repository, werden von Home Assistant aber nicht automatisch beim Installieren der Integration importiert. Kopiere sie nach `<config>/blueprints/automation/` oder importiere sie aus deinem GitHub-Repository.
+Die Blueprints liegen im Repository, werden von Home Assistant aber nicht automatisch beim Installieren der Integration importiert.
 
-Der Referenzbereich-Blueprint arbeitet mit den Rohzuständen des Bewertungssensors. Solange die Standardschwellen aktiv sind, werden die Zustände `*_natural_range` verwendet. Bei benutzerdefinierten Schwellen werden stattdessen die Zustände `*_configured_range` verwendet.
+### Blueprints über die RAW-Datei von GitHub importieren
+Für weniger versierte Nutzer ist das der einfachste Weg:
+
+1. In Home Assistant zu **Einstellungen → Automatisierungen & Szenen → Blueprints** gehen.
+2. Unten rechts auf **Blueprint importieren** klicken.
+3. Den passenden **RAW-Link** des gewünschten Blueprints in das Eingabefeld einfügen.
+4. Den Import bestätigen.
+5. Danach den Blueprint öffnen und daraus eine Automation erstellen.
+
+Direkte RAW-Links:
+
+- Referenzbereich-Benachrichtigung:  
+  `https://raw.githubusercontent.com/Q14siX/bfs_odl/main/blueprints/automation/bfs_odl/reference_range_notification.yaml`
+- Sprunghafte Änderung:  
+  `https://raw.githubusercontent.com/Q14siX/bfs_odl/main/blueprints/automation/bfs_odl/sudden_change_notification.yaml`
+- Daten nicht verfügbar:  
+  `https://raw.githubusercontent.com/Q14siX/bfs_odl/main/blueprints/automation/bfs_odl/data_unavailable_notification.yaml`
+
+### Blueprints manuell kopieren
+Alternativ können die YAML-Dateien direkt nach folgendem Ordner kopiert werden:
+
+`<config>/blueprints/automation/bfs_odl/`
+
+Danach Home Assistant neu laden oder neu starten.
+
+### Hinweis zur Zustandsauswahl im Referenzbereich-Blueprint
+Der Referenzbereich-Blueprint arbeitet mit den Rohzuständen des Bewertungssensors.
+
+- Solange die Standardschwellen aktiv sind, werden die Zustände `*_natural_range` verwendet.
+- Bei benutzerdefinierten Schwellen werden stattdessen die Zustände `*_configured_range` verwendet.
 
 ### Bestehende Installation aktualisieren
 1. Den Ordner `custom_components/bfs_odl` ersetzen.
@@ -314,9 +343,38 @@ Included under `blueprints/automation/bfs_odl/`:
 - `sudden_change_notification.yaml`
 - `data_unavailable_notification.yaml`
 
-Blueprints are stored in the repository, but Home Assistant does not auto-import them when the integration is installed. Copy them into `<config>/blueprints/automation/` or import them from your GitHub repository.
+Blueprints are stored in the repository, but Home Assistant does not auto-import them when the integration is installed.
 
-The reference-range blueprint works with the raw states of the assessment sensor. While the default thresholds are active it uses the `*_natural_range` states. With custom thresholds it uses the `*_configured_range` states.
+### Import blueprints using the GitHub RAW file
+For less technical users this is usually the easiest method:
+
+1. In Home Assistant open **Settings → Automations & Scenes → Blueprints**.
+2. Click **Import Blueprint** in the lower right corner.
+3. Paste the matching **RAW link** of the blueprint you want to import.
+4. Confirm the import.
+5. Open the imported blueprint and create an automation from it.
+
+Direct RAW links:
+
+- Reference range notification:  
+  `https://raw.githubusercontent.com/Q14siX/bfs_odl/main/blueprints/automation/bfs_odl/reference_range_notification.yaml`
+- Sudden change:  
+  `https://raw.githubusercontent.com/Q14siX/bfs_odl/main/blueprints/automation/bfs_odl/sudden_change_notification.yaml`
+- Data unavailable:  
+  `https://raw.githubusercontent.com/Q14siX/bfs_odl/main/blueprints/automation/bfs_odl/data_unavailable_notification.yaml`
+
+### Copy blueprints manually
+Alternatively, copy the YAML files directly into:
+
+`<config>/blueprints/automation/bfs_odl/`
+
+Then reload Home Assistant or restart it.
+
+### Note about state selection in the reference-range blueprint
+The reference-range blueprint works with the raw states of the assessment sensor.
+
+- While the default thresholds are active it uses the `*_natural_range` states.
+- With custom thresholds it uses the `*_configured_range` states.
 
 ### Updating an existing installation
 1. Replace the `custom_components/bfs_odl` folder.
