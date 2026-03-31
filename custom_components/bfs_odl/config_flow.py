@@ -34,10 +34,26 @@ from .const import (
     INTEGRATION_NAME,
     LOCATION_SOURCE_HOME,
     LOCATION_SOURCE_MANUAL,
+    SITE_STATUS_STATES,
 )
 
 DEFAULT_MANUAL_LATITUDE = 51.1657
 DEFAULT_MANUAL_LONGITUDE = 10.4515
+
+SITE_STATUS_TRANSLATIONS: dict[str, dict[str, str]] = {
+    "de": {
+        "in_operation": "In Betrieb",
+        "defective": "Defekt",
+        "test_operation": "Testbetrieb",
+        "unknown": "Unbekannt",
+    },
+    "en": {
+        "in_operation": "In operation",
+        "defective": "Defective",
+        "test_operation": "Test operation",
+        "unknown": "Unknown",
+    },
+}
 
 
 def _location_source_selector() -> selector.SelectSelector:
@@ -93,6 +109,50 @@ def _threshold_schema(config: Mapping[str, Any]) -> vol.Schema:
         vol.Required(CONF_THRESHOLD_LOW, default=float(config.get(CONF_THRESHOLD_LOW, DEFAULT_THRESHOLD_LOW_USV_H))): _threshold_selector(),
         vol.Required(CONF_THRESHOLD_HIGH, default=float(config.get(CONF_THRESHOLD_HIGH, DEFAULT_THRESHOLD_HIGH_USV_H))): _threshold_selector(),
     })
+
+
+def _site_status_label(site_status: int | None, language: str | None) -> str:
+    """Return a translated site-status label for station selection."""
+    lang = (language or "en").split("-", 1)[0].lower()
+    translations = SITE_STATUS_TRANSLATIONS.get(lang, SITE_STATUS_TRANSLATIONS["en"])
+    state = SITE_STATUS_STATES.get(site_status, "unknown") if site_status is not None else "unknown"
+    return translations.get(state, translations["unknown"])
+
+
+def _station_label(station: Station, distance: float, language: str | None) -> str:
+    """Return the station label used in the selector.
+
+    The Home Assistant picker sorts select labels with a locale-aware collator
+    using numeric comparison. Therefore the distance can stay human-readable at
+    the beginning of the label while the dropdown still sorts by distance.
+    """
+    distance_label = f"{distance:.1f}".replace('.', ',')
+    station_code = station.kenn or "-"
+    station_id = station.station_id or "-"
+    site_status = _site_status_label(station.site_status, language)
+    return f"{distance_label} km · {station.name} · {station_code} · {station_id} · {site_status}"
+
+
+def _station_options(candidates: list[tuple[Station, float]], language: str | None) -> list[selector.SelectOptionDict]:
+    return [
+        selector.SelectOptionDict(value=station.kenn, label=_station_label(station, distance, language))
+        for station, distance in candidates
+    ]
+
+
+def _default_station_selection(candidates: list[tuple[Station, float]]) -> list[str]:
+    return [station.kenn for station, _ in candidates[:DEFAULT_STATION_COUNT]]
+
+
+def _station_selector(candidates: list[tuple[Station, float]], language: str | None) -> selector.SelectSelector:
+    return selector.SelectSelector(
+        selector.SelectSelectorConfig(
+            options=_station_options(candidates, language),
+            multiple=True,
+            mode=selector.SelectSelectorMode.DROPDOWN,
+            sort=False,
+        )
+    )
 
 
 class StrahlenschutzConfigFlow(ConfigFlow, domain=DOMAIN):
@@ -154,9 +214,8 @@ class StrahlenschutzConfigFlow(ConfigFlow, domain=DOMAIN):
                     for station, _ in self._candidates if station.kenn in selected
                 }
                 return await self.async_step_thresholds()
-        options = [selector.SelectOptionDict(value=station.kenn, label=_station_label(station, distance)) for station, distance in self._candidates]
-        default_selection = [station.kenn for station, _ in self._candidates[:DEFAULT_STATION_COUNT]]
-        schema = vol.Schema({vol.Required(CONF_SELECTED_STATIONS, default=default_selection): selector.SelectSelector(selector.SelectSelectorConfig(options=options, multiple=True, mode=selector.SelectSelectorMode.DROPDOWN))})
+        default_selection = _default_station_selection(self._candidates)
+        schema = vol.Schema({vol.Required(CONF_SELECTED_STATIONS, default=default_selection): _station_selector(self._candidates, self.hass.config.language)})
         return self.async_show_form(step_id='select_stations', data_schema=schema, errors=errors, description_placeholders={'latitude': f"{self._config[CONF_LATITUDE]:.5f}", 'longitude': f"{self._config[CONF_LONGITUDE]:.5f}", 'radius': str(self._config[CONF_SEARCH_RADIUS_KM]), 'candidate_count': str(len(self._candidates))})
 
     async def async_step_thresholds(self, user_input: dict[str, Any] | None = None):
@@ -248,11 +307,10 @@ class StrahlenschutzOptionsFlow(OptionsFlow):
                     for station, _ in self._candidates if station.kenn in selected
                 }
                 return await self.async_step_thresholds()
-        options = [selector.SelectOptionDict(value=station.kenn, label=_station_label(station, distance)) for station, distance in self._candidates]
         current_selection = [station.kenn for station, _ in self._candidates if station.kenn in set(self._config.get(CONF_SELECTED_STATIONS, []))]
         if not current_selection:
-            current_selection = [station.kenn for station, _ in self._candidates[:DEFAULT_STATION_COUNT]]
-        schema = vol.Schema({vol.Required(CONF_SELECTED_STATIONS, default=current_selection): selector.SelectSelector(selector.SelectSelectorConfig(options=options, multiple=True, mode=selector.SelectSelectorMode.DROPDOWN))})
+            current_selection = _default_station_selection(self._candidates)
+        schema = vol.Schema({vol.Required(CONF_SELECTED_STATIONS, default=current_selection): _station_selector(self._candidates, self.hass.config.language)})
         return self.async_show_form(step_id='select_stations', data_schema=schema, errors=errors, description_placeholders={'latitude': f"{self._config[CONF_LATITUDE]:.5f}", 'longitude': f"{self._config[CONF_LONGITUDE]:.5f}", 'radius': str(self._config[CONF_SEARCH_RADIUS_KM]), 'candidate_count': str(len(self._candidates))})
 
     async def async_step_thresholds(self, user_input: dict[str, Any] | None = None):
@@ -290,11 +348,3 @@ class StrahlenschutzOptionsFlow(OptionsFlow):
             return self.async_show_form(step_id='init', data_schema=_base_user_schema(self._config), errors={'base': 'cannot_connect'})
         self._candidates = select_nearby_stations(stations=stations, latitude=float(self._config[CONF_LATITUDE]), longitude=float(self._config[CONF_LONGITUDE]), radius_km=float(self._config[CONF_SEARCH_RADIUS_KM]), max_candidates=int(self._config[CONF_MAX_CANDIDATES]))
         return await self.async_step_select_stations()
-
-
-def _station_label(station: Station, distance: float) -> str:
-    postal = station.plz or '----'
-    value = 'n/a'
-    if station.value is not None:
-        value = f"{station.value:.3f} {station.unit or 'µSv/h'}"
-    return f"{station.name} ({postal}) · {distance:.1f} km · {value} · {station.kenn}"
