@@ -6,6 +6,7 @@
 [![Languages](https://img.shields.io/badge/Languages-DE%20%7C%20EN-41BDF5?style=flat&logo=translate&logoColor=white)](#)
 [![License](https://img.shields.io/github/license/Q14siX/bfs_odl?style=flat&color=41BDF5&label=License)](https://github.com/Q14siX/bfs_odl/blob/main/LICENSE)
 [![Downloads](https://img.shields.io/github/downloads/Q14siX/bfs_odl/total?style=flat&color=41BDF5&label=Downloads)](https://github.com/Q14siX/bfs_odl/releases/latest)
+[![Issues](https://img.shields.io/github/issues/Q14siX/bfs_odl?style=flat&color=41BDF5&label=Issues)](https://github.com/Q14siX/bfs_odl/issues)
 
 # BfS ODL
 
