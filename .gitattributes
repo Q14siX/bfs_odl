@@ -1,2 +1,1 @@
-*.yaml linguist-detectable=true
-*.json linguist-detectable=true
+custom_components/bfs_odl/translations/*.json linguist-detectable=true
