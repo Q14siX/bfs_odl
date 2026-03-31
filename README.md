@@ -156,11 +156,11 @@ Für weniger versierte Nutzer ist das der einfachste Weg:
 Direkte RAW-Links:
 
 - Referenzbereich-Benachrichtigung:  
-  `https://raw.githubusercontent.com/Q14siX/bfs_odl/main/blueprints/automation/bfs_odl/reference_range_notification.yaml`
+  `https://raw.githubusercontent.com/Q14siX/bfs_odl/main/blueprints/automation/bfs_odl/de/reference_range_notification.yaml`
 - Sprunghafte Änderung:  
-  `https://raw.githubusercontent.com/Q14siX/bfs_odl/main/blueprints/automation/bfs_odl/sudden_change_notification.yaml`
+  `https://raw.githubusercontent.com/Q14siX/bfs_odl/main/blueprints/automation/bfs_odl/de/sudden_change_notification.yaml`
 - Daten nicht verfügbar:  
-  `https://raw.githubusercontent.com/Q14siX/bfs_odl/main/blueprints/automation/bfs_odl/data_unavailable_notification.yaml`
+  `https://raw.githubusercontent.com/Q14siX/bfs_odl/main/blueprints/automation/bfs_odl/de/data_unavailable_notification.yaml`
 
 ### Blueprints manuell kopieren
 Alternativ können die YAML-Dateien direkt nach folgendem Ordner kopiert werden:
@@ -357,11 +357,11 @@ For less technical users this is usually the easiest method:
 Direct RAW links:
 
 - Reference range notification:  
-  `https://raw.githubusercontent.com/Q14siX/bfs_odl/main/blueprints/automation/bfs_odl/reference_range_notification.yaml`
+  `https://raw.githubusercontent.com/Q14siX/bfs_odl/main/blueprints/automation/bfs_odl/en/reference_range_notification.yaml`
 - Sudden change:  
-  `https://raw.githubusercontent.com/Q14siX/bfs_odl/main/blueprints/automation/bfs_odl/sudden_change_notification.yaml`
+  `https://raw.githubusercontent.com/Q14siX/bfs_odl/main/blueprints/automation/bfs_odl/en/sudden_change_notification.yaml`
 - Data unavailable:  
-  `https://raw.githubusercontent.com/Q14siX/bfs_odl/main/blueprints/automation/bfs_odl/data_unavailable_notification.yaml`
+  `https://raw.githubusercontent.com/Q14siX/bfs_odl/main/blueprints/automation/bfs_odl/en/data_unavailable_notification.yaml`
 
 ### Copy blueprints manually
 Alternatively, copy the YAML files directly into:
