@@ -1,12 +1,11 @@
-![Home Assistant](https://img.shields.io/badge/Home%20Assistant-Integration-blue?style=flat&logo=home-assistant)
-![HACS](https://img.shields.io/badge/HACS-Custom-orange?style=flat)
-![Latest Release](https://img.shields.io/github/v/release/Q14siX/bfs_odl?style=flat&color=blue)
-![Maintained](https://img.shields.io/badge/Maintained%3F-yes-green?style=flat)
-
-![Downloads](https://img.shields.io/github/downloads/Q14siX/bfs_odl/total?style=flat&color=green)
-![Stars](https://img.shields.io/github/stars/Q14siX/bfs_odl?style=flat&logo=github&color=gold)
-![Languages](https://img.shields.io/badge/Languages-Deutsch%20%7C%20English-orange?style=flat&logo=translate)
-![License](https://img.shields.io/github/license/Q14siX/bfs_odl?style=flat&color=orange)
+[![Home Assistant](https://img.shields.io/badge/Home%20Assistant-Integration-41BDF5?style=flat&logo=home-assistant&logoColor=white)](https://www.home-assistant.io/)
+[![HACS](https://img.shields.io/badge/HACS-Custom-41BDF5?style=flat&logo=hacs&logoColor=white)](https://hacs.xyz/)
+[![Version](https://img.shields.io/github/v/release/Q14siX/bfs_odl?style=flat&color=41BDF5&label=Version)](https://github.com/Q14siX/bfs_odl/releases/latest)
+[![Maintained](https://img.shields.io/badge/Maintained%3F-yes-41BDF5?style=flat)](#)
+[![Stars](https://img.shields.io/github/stars/Q14siX/bfs_odl?style=flat&logo=github&color=41BDF5&label=Stars)](https://github.com/Q14siX/bfs_odl/stargazers)
+[![Languages](https://img.shields.io/badge/Languages-DE%20%7C%20EN-41BDF5?style=flat&logo=translate&logoColor=white)](#)
+[![License](https://img.shields.io/github/license/Q14siX/bfs_odl?style=flat&color=41BDF5&label=License)](https://github.com/Q14siX/bfs_odl/blob/main/LICENSE)
+[![Downloads](https://img.shields.io/github/downloads/Q14siX/bfs_odl/total?style=flat&color=41BDF5&label=Downloads)](https://github.com/Q14siX/bfs_odl/releases/latest)
 
 # BfS ODL
 
