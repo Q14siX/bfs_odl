@@ -1,3 +1,13 @@
+![Home Assistant](https://img.shields.io/badge/Home%20Assistant-Integration-blue?style=flat&logo=home-assistant)
+![HACS](https://img.shields.io/badge/HACS-Custom-orange?style=flat)
+![Latest Release](https://img.shields.io/github/v/release/Q14siX/bfs_odl?style=flat&color=blue)
+![Maintained](https://img.shields.io/badge/Maintained%3F-yes-green?style=flat)
+
+![Downloads](https://img.shields.io/github/downloads/Q14siX/bfs_odl/total?style=flat&color=green)
+![Stars](https://img.shields.io/github/stars/Q14siX/bfs_odl?style=flat&logo=github)
+![Languages](https://img.shields.io/badge/Languages-Deutsch%20%7C%20English-orange?style=flat&logo=translate)
+![License](https://img.shields.io/github/license/Q14siX/bfs_odl?style=flat&color=orange)
+
 # BfS ODL
 
 [Jump to English section](#english)
