@@ -4,8 +4,8 @@
   "codeowners": ["@Q14siX"],
   "config_flow": true,
   "documentation": "https://github.com/Q14siX/bfs_odl",
-  "integration_type": "hub",
   "iot_class": "cloud_polling",
+  "integration_type": "hub",
   "issue_tracker": "https://github.com/Q14siX/bfs_odl/issues",
   "requirements": [],
   "version": "20260331.2315"
